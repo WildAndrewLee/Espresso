@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include "espresso.h"
 
-bool DEBUG = false;
-
 int main(int argc, string argv[]){
 	//Check command line flags.
 	while(argc > 2){

@@ -29,7 +29,7 @@ void efree(void* var);
 /**
  * Global Variables
  */
-bool DEBUG;
+bool DEBUG = false;
 
 /**
  * Interface implementations.
