@@ -1,7 +1,7 @@
 #include <assert.h>
 
-#ifndef EXPRESSO
-#define EXPRESSO
+#ifndef ESPRESSO
+#define ESPRESSO
 /**
  * Definitions
  */
