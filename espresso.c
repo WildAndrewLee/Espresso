@@ -1,7 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include "espresso.h"
-
 int main(int argc, string argv[]){
 	//Check command line flags.
 	while(argc > 2){
@@ -25,7 +21,7 @@ int main(int argc, string argv[]){
 	}
 
 	if(argc == 2){
-		//Open the Expresso file in binary mode.
+		//Open the Espresso file in binary mode.
 		file f = fopen(argv[1], "rb");
 
 		//Get the file size to malloc.
