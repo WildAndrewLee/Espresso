@@ -1,5 +1,5 @@
-#ifndef TYPES
-#define TYPES
+#ifndef _TYPES_H_
+#define _TYPES_H_
 
 #undef true
 #undef false

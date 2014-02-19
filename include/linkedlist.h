@@ -1,7 +1,7 @@
 #include "types.h"
 
-#ifndef LINKEDLIST
-#define LINKEDLIST
+#ifndef _LINKEDLIST_H_
+#define _LINKEDLIST_H_
 typedef struct linkedList* linkedList;
 typedef struct linkedNode* linkedNode;
 
