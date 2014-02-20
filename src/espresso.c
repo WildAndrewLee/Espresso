@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include "types.h"
 #include "espresso.h"
@@ -10,7 +11,7 @@ int main(int argc, string argv[]){
 
 		process(contents);
 
-		efree(contents);
+		free(contents);
 	}
 	else{
 		printf("<Invalid number of arguments supplied.>\n");

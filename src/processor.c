@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 #include "types.h"
 #include "linkedlist.h"
@@ -24,7 +25,7 @@ bool isDelimiter(char c){
 }
 
 string getNextToken(size_t index, string buffer){
-	string token = (string) emalloc(sizeof(char));
+	string token = (string) malloc(sizeof(char));
 	size_t size = 1;
 	size_t pos = 0;
 
@@ -35,7 +36,7 @@ string getNextToken(size_t index, string buffer){
 				return token;
 			}
 			else{
-				string s = (string) emalloc(sizeof(char) * 2);
+				string s = (string) malloc(sizeof(char) * 2);
 				s[0] = buffer[index];
 				s[1] = '\0';
 
@@ -70,9 +71,9 @@ void process(string buffer){
 
 	while(!linkedListIsEmpty(tokens)){
 		linkedNode node = removeLinkedListHead(tokens);
-		efree(node->content);
-		efree(node);
+		free(node->content);
+		free(node);
 	}
 
-	efree(tokens);
+	free(tokens);
 }

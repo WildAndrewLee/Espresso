@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "types.h"
 #include "linkedlist.h"
 #include "tree.h"
@@ -6,7 +7,7 @@
 #include "parser.h"
 
 frame newFrame(){
-	return (frame) emalloc(sizeof(struct frame));
+	return (frame) malloc(sizeof(struct frame));
 }
 
 void parse(linkedList tokens){

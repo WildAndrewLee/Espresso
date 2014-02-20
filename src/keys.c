@@ -1,3 +1,4 @@
+#include "types.h"
 #include "keys.h"
 
 const unsigned int KEYWORDS_SIZE = 7;

@@ -20,7 +20,7 @@ INCLUDES_FOLDER=include
 # The name of the library folder.
 LIBRARY_FOLDER=lib
 # The names of all library source files you will need.
-LIBRARY_SOURCES=mem.c linkedlist.c tree.c
+LIBRARY_SOURCES=linkedlist.c tree.c
 # The name of the source folder.
 SOURCE_FOLDER=src
 # The names of all the source files you will need. These must be

@@ -1,12 +1,4 @@
-/**
- * Build Order:
- * bootstrap.c
- * lib/linkedlist.c
- * lib/tree.c
- * processor.c
- * espresso.c
- */
-
+#include <stdlib.h>
 #include "types.h"
 #include "espresso.h"
 
@@ -51,7 +43,7 @@ string readFile(string path){
 		length = ftell(f);
 		fseek(f, 0, SEEK_SET);
 
-		contents = (string) emalloc(length + 1);
+		contents = (string) malloc(length + 1);
 
 		fread(contents, length, 1, f);
 		fclose(f);
