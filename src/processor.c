@@ -23,8 +23,9 @@ bool isDelimiter(char c){
 	return false;
 }
 
-string getNextToken(int index, string buffer){
-	string token = (string) emalloc(sizeof(char) * 256);
+string getNextToken(size_t index, string buffer){
+	string token = (string) emalloc(sizeof(char));
+	size_t size = 1;
 	size_t pos = 0;
 
 	while(buffer[index]){
@@ -40,6 +41,10 @@ string getNextToken(int index, string buffer){
 
 				return s;
 			}
+		}
+
+		if(pos == size){
+			token = realloc(token, sizeof(char) * size * 2);
 		}
 
 		token[pos++] = buffer[index++];
@@ -64,7 +69,9 @@ void process(string buffer){
 	parse(tokens);
 
 	while(!linkedListIsEmpty(tokens)){
-		efree(removeLinkedListHead(tokens));
+		linkedNode node = removeLinkedListHead(tokens);
+		efree(node->content);
+		efree(node);
 	}
 
 	efree(tokens);

@@ -15,9 +15,9 @@ struct linkedNode {
 	linkedNode next;
 };
 
+bool linkedListIsEmpty(linkedList l);
 linkedList newLinkedList(void* content);
 linkedNode newLinkedNode(void* content);
 void appendLinkedNode(linkedNode n, linkedList l);
 linkedNode removeLinkedListHead(linkedList l);
-bool linkedListIsEmpty(linkedList l);
 #endif

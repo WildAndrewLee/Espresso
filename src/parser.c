@@ -10,5 +10,10 @@ frame newFrame(){
 }
 
 void parse(linkedList tokens){
+	linkedNode node = tokens->head;
 
+	while(node != NULL){
+		printf("%s", (string) node->content);
+		node = node->next;
+	}
 }

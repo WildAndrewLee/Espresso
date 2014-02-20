@@ -16,7 +16,6 @@ char WHITESPACE_DELIMITERS[] = {
 	' ',
 	'\n',
 	'\t',
-	'\r'
 };
 
 const unsigned int TOKEN_DELIMITERS_SIZE = 17;

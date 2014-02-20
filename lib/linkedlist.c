@@ -1,11 +1,20 @@
 #include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "linkedlist.h"
 
+bool linkedListIsEmpty(linkedList l){
+	assert(l);
+
+	return l->head == NULL && l->tail == NULL;
+}
+
 linkedList newLinkedList(void* content){
 	linkedList l = (linkedList) malloc(sizeof(*l));
+	l->head = l->tail = NULL;
 
 	if(content){
+		assert(content);
 		linkedNode n = newLinkedNode(content);
 		l->head = l->tail = n;
 	}
@@ -30,7 +39,7 @@ void appendLinkedNode(linkedNode n, linkedList l){
 	if(!l->tail)
 		l->head = l->tail = n;
 	else
-		l->tail->next = l->tail = n;
+		l->tail = l->tail->next = n;
 }
 
 linkedNode removeLinkedListHead(linkedList l){
@@ -44,10 +53,4 @@ linkedNode removeLinkedListHead(linkedList l){
 		l->tail = NULL;
 
 	return n;
-}
-
-bool linkedListIsEmpty(linkedList l){
-	assert(l);
-
-	return l->head == NULL && l->tail == NULL;
 }

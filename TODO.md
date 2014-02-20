@@ -1,3 +1,0 @@
-- Implement a dynamic array
-- Use dynamic arrays when reading in tokens
-- Actually comment stuff
