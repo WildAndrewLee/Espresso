@@ -1,18 +1,19 @@
 #include "types.h"
 #include "linkedlist.h"
+#include "hashmap.h"
 
 #ifndef _PARSER_H_
 #define _PARSER_H_
 typedef struct frame* frame;
 
 struct frame {
-	linkedList stringPool;
-	linkedList intPool;
-	linkedList floatPool;
-	linkedList boolPool;
-	linkedList functionPool;
+	map stringPool;
+	map intPool;
+	map floatPool;
+	map boolPool;
+	map functionPool;
 };
 
 frame newFrame();
-void parse(linkedList tokens);
+void parse(array tokens);
 #endif

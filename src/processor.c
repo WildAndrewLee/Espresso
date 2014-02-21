@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "types.h"
-#include "linkedlist.h"
+#include "dynamicarray.h"
 #include "espresso.h"
 #include "keys.h"
 #include "processor.h"
@@ -55,7 +55,7 @@ string getNextToken(size_t index, string buffer){
 }
 
 void process(string buffer){
-	linkedList tokens = newLinkedList(NULL);
+	array tokens = newArray(256);
 	size_t index;
 
 	for(index = 0; index < strlen(buffer); index++){
@@ -63,16 +63,13 @@ void process(string buffer){
 
 		index += strlen(token) - 1;
 
-		linkedNode node = newLinkedNode(token);
-		appendLinkedNode(node, tokens);
+		insertArrayValue(token, tokens);
 	}
 
 	parse(tokens);
 
-	while(!linkedListIsEmpty(tokens)){
-		linkedNode node = removeLinkedListHead(tokens);
-		free(node->content);
-		free(node);
+	for(index = 0; index < tokens->length; index++){
+		free(getArrayValue(index, tokens));
 	}
 
 	free(tokens);
