@@ -17,4 +17,5 @@ void insertMapValue(string key, void* value, map m);
 void resizeMap(map m, size_t scale);
 int hashKey(string key);
 void* getKeyValue(string key, map m);
+void fillEmpty(map m);
 #endif

@@ -25,27 +25,25 @@ bool isDelimiter(char c){
 }
 
 string getNextToken(size_t index, string buffer){
-	string token = (string) malloc(sizeof(char));
-	size_t size = 1;
+	string token = (string) malloc(sizeof(char) * 256);
+	size_t size = 256;
 	size_t pos = 0;
 
 	while(buffer[index]){
 		if(isDelimiter(buffer[index])){
 			if(pos > 0){
 				token[pos] = '\0';
-				return token;
 			}
 			else{
-				string s = (string) malloc(sizeof(char) * 2);
-				s[0] = buffer[index];
-				s[1] = '\0';
-
-				return s;
+				token[0] = buffer[index];
+				token[1] = '\0';
 			}
+
+			return token;
 		}
 
 		if(pos == size){
-			token = realloc(token, sizeof(char) * size * 2);
+			string resize = realloc(token, sizeof(char) * size * 2);
 		}
 
 		token[pos++] = buffer[index++];
@@ -55,13 +53,15 @@ string getNextToken(size_t index, string buffer){
 }
 
 void process(string buffer){
-	array tokens = newArray(256);
+	array tokens = newArray(1);
 	size_t index;
 
 	for(index = 0; index < strlen(buffer); index++){
 		string token = getNextToken(index, buffer);
 
 		index += strlen(token) - 1;
+
+		free(token);
 
 		insertArrayValue(token, tokens);
 	}
@@ -72,5 +72,6 @@ void process(string buffer){
 		free(getArrayValue(index, tokens));
 	}
 
+	free(tokens->values);
 	free(tokens);
 }

@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include "types.h"
 #include "espresso.h"
+#include "var.h"
+#include "hashmap.h"
 
 int main(int argc, string argv[]){
 	checkArgs(argc, argv);
