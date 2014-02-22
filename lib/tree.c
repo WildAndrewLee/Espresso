@@ -4,7 +4,6 @@
 
 node newNode(void* token, size_t size){
 	assert(token);
-	assert(size >= 0);
 
 	node n = malloc(sizeof(*n));
 	n->token = token;

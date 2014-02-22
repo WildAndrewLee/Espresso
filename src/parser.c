@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "types.h"
+#include "str.h"
 #include "linkedlist.h"
 #include "dynamicarray.h"
 #include "hashmap.h"
@@ -13,8 +14,6 @@ frame newFrame(){
 }
 
 void parse(array tokens){
-	node n = NULL;
-
 	/*
 
 	size_t index;

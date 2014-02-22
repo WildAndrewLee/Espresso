@@ -1,7 +1,6 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include "types.h"
+#include "str.h"
 #include "var.h"
 #include "linkedlist.h"
 #include "hashmap.h"
@@ -44,7 +43,7 @@ void removeMapValue(string key, map m){
 		linkedNode node = list->head;
 		var content = (var) node->content;
 
-		if(!strcmp(key, content->name)){
+		if(streq(key, content->name)){
 			removeLinkedListHead(list);
 
 			free(node);
@@ -60,12 +59,12 @@ void removeMapValue(string key, map m){
 
 		content = (var) node->next->content;
 
-		while(node->next && strcmp(key, content->name)){
+		while(node->next && !streq(key, content->name)){
 			node = node->next;
 			content = (var) node->next->content;
 		}
 
-		if(!strcmp(key, content->name)){
+		if(node->next){
 			linkedNode removed = node->next;
 			node->next = removed->next;
 
@@ -79,7 +78,6 @@ void resizeMap(map m, size_t scale){
 	void** old = m->values;
 	size_t size = scale * m->size;
 	size_t oldSize = m->size;
-	size_t count = m->count;
 
 	m->size = size;
 	m->values = malloc(sizeof(void*) * size);
@@ -131,7 +129,7 @@ void* getKeyValue(string key, map m){
 	linkedNode node = list->head;
 	var v = (var) node->content;
 
-	while(node && strcmp(key, v->name)){
+	while(node && !streq(key, v->name)){
 		node = node->next;
 		v = node ? (var) node->content : NULL;
 	}

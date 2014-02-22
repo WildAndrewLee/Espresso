@@ -1,10 +1,11 @@
 #include <stdlib.h>
-#include <string.h>
 #include "types.h"
+#include "str.h"
 #include "dynamicarray.h"
 #include "espresso.h"
 #include "keys.h"
 #include "processor.h"
+#include "parser.h"
 
 bool isDelimiter(char c){
 	size_t n;
@@ -42,8 +43,8 @@ string getNextToken(size_t index, string buffer){
 			return token;
 		}
 
-		if(pos == size){
-			string resize = realloc(token, sizeof(char) * size * 2);
+		if(pos == size - 1){
+			token = realloc(token, sizeof(char) * size * 2);
 		}
 
 		token[pos++] = buffer[index++];
