@@ -36,9 +36,9 @@ string readFile(string path){
 	file f = fopen(path, "rb");
 
 	string contents;
-	long length;
 
 	if(f){
+		long length;
 		fseek(f, 0, SEEK_END);
 		length = ftell(f);
 		fseek(f, 0, SEEK_SET);

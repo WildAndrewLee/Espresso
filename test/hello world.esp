@@ -1,17 +1,10 @@
-print("hello") # hello
-print("%s%d", "hello", 5) # hello5
-print("hello", 5) # hello 5
+print("hello"); # hello
+print("%s%d", "hello", 5); # hello5
+print("hello", 5); # hello 5
 
-x = 5
+x = 5;
 
-if(x > 5)
+if(x == 5)
 {
-	print("x is 5")
+	print("x is 5");
 }
-
-function whatever(x, y)
-{
-	print(x + y)
-}
-
-whatever(2, 2)

@@ -11,7 +11,17 @@ bool streq(string a, string b){
 			return false;
 	}
 
-	return true;
+	return !ca && !cb;
+}
+
+bool strcontains(string a, char b){
+	char* ca = a;
+
+	while(ca)
+		if(*(ca++) == b)
+			return true;
+
+	return false;
 }
 
 size_t strlen(string str){

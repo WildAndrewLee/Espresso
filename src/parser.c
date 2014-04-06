@@ -13,16 +13,6 @@ frame newFrame(){
 	return (frame) malloc(sizeof(struct frame));
 }
 
-void parse(array tokens){
-	/*
-
-	size_t index;
-
-	for(index = 0; index < tokens->length; index++){
-		if(node == NULL){
-			n = newNode(token->content)
-		}
-	}
-
-	*/
+void parse(node tokens){
+	
 }

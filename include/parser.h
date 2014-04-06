@@ -1,5 +1,6 @@
 #include "types.h"
 #include "linkedlist.h"
+#include "tree.h"
 #include "hashmap.h"
 
 #ifndef _PARSER_H_
@@ -15,5 +16,5 @@ struct frame {
 };
 
 frame newFrame();
-void parse(array tokens);
+node parse(array tokens);
 #endif

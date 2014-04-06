@@ -1,0 +1,23 @@
+print("hello"); # hello
+print("%s%d", "hello", 5); # hello5
+
+x = 5;
+
+if(x > 5)
+{
+	print("x is > 5");
+}
+
+function whatever(x, y)
+{
+	print(x + y);
+}
+
+whatever(2, 2);
+
+print -> {"hello"}
+print -> {"%s%d", "hello", 5}
+= -> {x, 5}
+if -> {> -> {x, 5}, print -> {"x is > 5"}}
+= -> {whatever, function -> {args -> {x, y}, print -> {x + 5}}}
+whatever -> {2, 2}

@@ -26,5 +26,4 @@ typedef FILE* file;
  */
 void checkArgs(int argc, string argv[]);
 string readFile(string path);
-void process(string buffer);
 #endif

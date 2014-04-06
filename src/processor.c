@@ -62,8 +62,6 @@ void process(string buffer){
 
 		index += strlen(token) - 1;
 
-		free(token);
-
 		insertArrayValue(token, tokens);
 	}
 
