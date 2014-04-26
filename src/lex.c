@@ -3,8 +3,9 @@
 #include "str.h"
 #include "dynamicarray.h"
 #include "tree.h"
+#include "lex.h"
 
-array getParams(array tokens, size_t* index, string open, string close){
+array getBlock(array tokens, size_t* index, string open, string close){
 	bool escape = false;
 	size_t braces = 1;
 
@@ -12,24 +13,24 @@ array getParams(array tokens, size_t* index, string open, string close){
 
 	string token = getArrayValue(*index, tokens);
 
-	if(!streq(token, open){
+	if(!streq(token, open)){
 		//Invalid syntax detected.
-		//Whatever not proceeded by a an opening brace.
+		//Whatever not proceeded by a an opening token.
 	}
 
 	//Keep adding tokens to the array until the closing
-	//brace is found.
+	//token is found.
 	for(*index += 1; *index < tokens->length; (*index)++){
 		token = getArrayValue(*index, tokens);
 
 		//Check matching braces.
-		if(!escape && streq(token, open){
+		if(!escape && streq(token, open)){
 			braces++;
 		}
 		else if(!escape && streq(token, close)){
 			braces--;
 
-			//If this is the closing brace just return the array.
+			//If this is the closing token just return the array.
 			if(braces == 0){
 				(*index)++;
 				return params;
@@ -38,15 +39,44 @@ array getParams(array tokens, size_t* index, string open, string close){
 		else if(!escape && streq(token, "\\")){
 			escape = true;
 		}
+		else{
+			escape = false;
+		}
 
 		insertArrayValue(token, params);
 	}
 
 	//Invalid syntax detected.
-	//Mismatched braces.
+	//Mismatched tokens.
 	//Report an error.
 
 	return NULL;
+}
+
+array getBlockTo(array tokens, size_t* index, string stop){
+	bool escape = false;
+	array params = newArray(0);
+	string token;
+
+	//Keep adding tokens to the array until we reach a stopping token.
+	for(*index += 1; *index < tokens->length; (*index)++){
+		token = getArrayValue(*index, tokens);
+
+		if(!escape && streq(token, stop)){
+			(*index)++;
+			break;			
+		}
+		else if(!escape && streq(token, "\\")){
+			escape = true;
+		}
+		else{
+			escape = false;
+		}
+
+		insertArrayValue(token, params);
+	}
+
+	return params;
 }
 
 node analyzeIf(node programNode, array tokens, size_t* index){
@@ -57,14 +87,14 @@ node analyzeIf(node programNode, array tokens, size_t* index){
 	//Advance index to the next token.
 	*index += 1;
 
-	array condition = getBlock(tokens, &index, "(", ")"));
+	array condition = getBlock(tokens, index, "(", ")");
 	node conditionNode = analyze(condition);
 
 	programNode->children[0] = conditionNode->next;
 
 	free(conditionNode);
 
-	array block = getBlock(tokens, &index, "{", "}");
+	array block = getBlock(tokens, index, "{", "}");
 	node blockNode = analyze(block);
 
 	programNode->children[1] = blockNode->next;
@@ -82,7 +112,7 @@ node analyzeElse(node programNode, array tokens, size_t* index){
 	//Advance index to the next token.
 	*index += 1;
 
-	array block = getBlock(tokens, &index, "{", "}");
+	array block = getBlock(tokens, index, "{", "}");
 	node blockNode = analyze(block);
 
 	programNode->children[0] = blockNode->next;
@@ -93,7 +123,7 @@ node analyzeElse(node programNode, array tokens, size_t* index){
 }
 
 node analyzeString(node programNode, array tokens, size_t* index){
-	array block = getBlock(tokens, &index, "\"", "\"");
+	array block = getBlock(tokens, index, "\"", "\"");
 
 	node next = newNode("string", 1);
 	node str = newNode(block, 0);
@@ -113,14 +143,14 @@ node analyzeWhile(node programNode, array tokens, size_t* index){
 	//Advance index to the next token.
 	*index += 1;
 
-	array condition = getBlock(tokens, &index, "(", ")"));
+	array condition = getBlock(tokens, index, "(", ")");
 	node conditionNode = analyze(condition);
 
 	programNode->children[0] = conditionNode->next;
 
 	free(conditionNode);
 
-	array block = getBlock(tokens, &index, "{", "}");
+	array block = getBlock(tokens, index, "{", "}");
 	node blockNode = analyze(block);
 
 	programNode->children[1] = blockNode->next;
@@ -130,19 +160,45 @@ node analyzeWhile(node programNode, array tokens, size_t* index){
 	return programNode;
 }
 
-node analyzeStatement(node programNode, array tokens, size_t* tokens){
+node analyzeFunctionCall(array tokens){
+	return NULL;
+}
+
+node analyzeStatement(node programNode, array tokens, size_t* index){
 	node next = newNode("statement", 1);
 	programNode->next = next;
 	programNode = next;
 
+	array arr = getBlockTo(tokens, index, ";");
 
+	node statement = NULL;
+
+	//All alphabet tokens are either variable names
+	//or function names.
+	if(strisalpha(getArrayValue(0, arr))){
+		//Check for an open parenthesis as the second
+		//token which signals a function call.
+		if(streq(getArrayValue(1, arr), "("))
+			statement = analyzeFunctionCall(arr);
+		//It's a variable declaration parse the statement
+		//as a variable declaration.
+	}
+
+	if(!statement){
+		//If statement is null that means we
+		//failed to determine the type of statement.
+	}
+
+	programNode->children[0] = newNode(statement, 0);
+
+	return programNode;
 }
 
 node analyze(array tokens){
 	size_t index;
 	bool str = false;
 	node programNode = newNode("PROGRAM", 0);
-	
+	node programStart = programNode;
 
 	for(index = 0; index < tokens->length; index++){
 		string token = getArrayValue(index, tokens);
@@ -169,5 +225,5 @@ node analyze(array tokens){
 		}
 	}
 
-	return NULL;
+	return programStart;
 }

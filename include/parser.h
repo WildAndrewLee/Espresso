@@ -16,5 +16,5 @@ struct frame {
 };
 
 frame newFrame();
-node parse(array tokens);
+void parse(node tokens);
 #endif

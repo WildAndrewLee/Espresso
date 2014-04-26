@@ -6,10 +6,9 @@ bool streq(string a, string b){
 	char* ca = a;
 	char* cb = b;
 
-	while(ca && cb){
+	while(ca && cb)
 		if(*(ca++) != *(cb++))
 			return false;
-	}
 
 	return !ca && !cb;
 }
@@ -32,4 +31,18 @@ size_t strlen(string str){
 		len++;
 
 	return len;
+}
+
+bool strisalpha(string a){
+	char* ca = a;
+
+	while(ca){
+		bool uppercase = (int) ca >= 65 && (int) ca <= 90;
+		bool lowercase = (int) ca >= 97 && (int) ca <= 122;
+
+		if(!(uppercase || lowercase))
+			return false;
+	}
+
+	return true;
 }

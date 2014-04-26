@@ -2,9 +2,11 @@
 #include "types.h"
 #include "str.h"
 #include "dynamicarray.h"
+#include "tree.h"
 #include "espresso.h"
 #include "keys.h"
 #include "processor.h"
+#include "lex.h"
 #include "parser.h"
 
 bool isDelimiter(char c){
@@ -65,7 +67,11 @@ void process(string buffer){
 		insertArrayValue(token, tokens);
 	}
 
-	parse(tokens);
+	node tree = analyze(tokens);
+
+	parse(tree);
+
+	//Free tree nodes.
 
 	for(index = 0; index < tokens->length; index++){
 		free(getArrayValue(index, tokens));

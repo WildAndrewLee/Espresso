@@ -4,6 +4,7 @@
 #include "espresso.h"
 #include "var.h"
 #include "hashmap.h"
+#include "processor.h"
 
 int main(int argc, string argv[]){
 	checkArgs(argc, argv);

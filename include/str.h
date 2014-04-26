@@ -6,4 +6,5 @@
 bool streq(string a, string b);
 bool strcontains(string a, char b);
 size_t strlen(string str);
+bool strisalpha(string a);
 #endif
