@@ -14,5 +14,5 @@ frame newFrame(){
 }
 
 void parse(node tokens){
-	
+	printf("%s", (char*) tokens->token);
 }

@@ -7,8 +7,8 @@ string KEYWORDS[] = {
 	"else",
 	"for",
 	"while",
-	"lambda",
-	"function"
+	"function",
+	"return"
 };
 
 const unsigned int WHITESPACE_DELIMITERS_SIZE = 4;

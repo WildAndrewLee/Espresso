@@ -12,6 +12,7 @@ node analyzeElse(node programNode, array tokens, size_t* index);
 node analyzeString(node programNode, array tokens, size_t* index);
 node analyzeWhile(node programNode, array tokens, size_t* index);
 node analyzeFunctionCall(array tokens);
+node analyzeVariable(array tokens);
 node analyzeStatement(node programNode, array tokens, size_t* index);
 node analyze(array tokens);
 #endif

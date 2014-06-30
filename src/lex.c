@@ -161,7 +161,39 @@ node analyzeWhile(node programNode, array tokens, size_t* index){
 }
 
 node analyzeFunctionCall(array tokens){
-	return NULL;
+	//Get number of arguments.
+	size_t index = 0;
+	array args = getBlockTo(tokens, &index, ")");
+	size_t argNum = ((int) (args->length / 2)) + 1;
+
+	node call = newNode("call", 1);
+	node function = newNode(getArrayValue(0, tokens), argNum);
+
+	for(index = 0; index < argNum; index++){
+		function->children[index] = getArrayValue(index * 2, tokens);
+	}
+
+	call->children[0] = function;
+
+	return call;
+}
+
+node analyzeVariable(array tokens){
+	node variable = newNode("variable", 2);
+	variable->children[0] = getArrayValue(0, tokens);
+
+	size_t* one = malloc(sizeof(size_t));
+	*one = 1;
+
+	array arr = getBlockTo(tokens, one, ";");
+
+	free(one);
+
+	node value = newNode(arr, 0);
+
+	variable->children[1] = value;
+
+	return variable;
 }
 
 node analyzeStatement(node programNode, array tokens, size_t* index){
@@ -178,10 +210,12 @@ node analyzeStatement(node programNode, array tokens, size_t* index){
 	if(strisalpha(getArrayValue(0, arr))){
 		//Check for an open parenthesis as the second
 		//token which signals a function call.
-		if(streq(getArrayValue(1, arr), "("))
+		if(streq(getArrayValue(1, arr), "(")){
 			statement = analyzeFunctionCall(arr);
+		}
 		//It's a variable declaration parse the statement
 		//as a variable declaration.
+		statement = analyzeVariable(arr);
 	}
 
 	if(!statement){
